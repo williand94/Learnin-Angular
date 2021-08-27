@@ -1,67 +1,30 @@
 "use strict";
-(() => {
-    // Uso de Let y Const
-    const nombre = "Ricardo Tapia";
-    let edad = 23;
-    const PERSONAJE = { nombre, edad };
-    const batman = {
-        nombre: "Bruno Díaz",
-        artesMarciales: ["Karate", "Aikido", "Wing Chun", "Jiu-Jitsu"],
-    };
-    const validarBatman = (batman) => {
-        if (batman.nombre === "Bruno Díaz") {
-            return console.log(`Identidad de Batman: ${batman.nombre} Artesmarciales: ${batman.artesMarciales}`);
-        }
-    };
-    validarBatman(batman);
-    // Convertir esta funcion a una funcion de flecha
-    function resultadoDoble(a, b) {
-        return (a + b) * 2;
+//Calcular Si alumno pasa la materia
+let estudiante = {
+    nombre: 'Willian David',
+    apellido: 'Vallecilla Riasocos',
+    edad: 27,
+    carrera: 'Ingeniería en Sistemas',
+    status: true,
+    calificaciones: {
+        corte1: 50,
+        corte2: 95,
+        corte3: 22
     }
-    const sumar = (a, b) => {
-        return (a + b) * 2;
-    };
-    console.log(sumar(5, 6));
-    // Función con parametros obligatorios, opcionales y por defecto
-    // donde NOMBRE = obligatorio
-    //       PODER  = opcional
-    //       ARMA   = por defecto = 'arco'
-    function getAvenger1(nombre, poder, arma = "Arco") {
-        var mensaje;
-        if (poder) {
-            mensaje = nombre + " tiene el poder de: " + poder + " y un arma: " + arma;
+};
+const notaFinal = (estudiante) => {
+    return new Promise((resolve, reject) => {
+        if (estudiante.status === true) {
+            let prom = (estudiante.calificaciones.corte1 + estudiante.calificaciones.corte2 + estudiante.calificaciones.corte3) / 3;
+            if (prom > 59) {
+                resolve(`${estudiante.nombre} Paso la materia en : ${prom}`);
+            }
+            else {
+                reject(`${estudiante.nombre}  la materia la pierde en : ${prom}`);
+            }
         }
-        else {
-            mensaje = nombre + " tiene un " + poder;
-        }
-    }
-    const getAvenger = (nombre, poder, arma = "Arco") => {
-        let mensaje;
-        if (poder) {
-            mensaje = `${nombre} tiene el poder de ${poder} y un ${arma}`;
-        }
-        else {
-            mensaje = `${nombre} tiene un ${poder}`;
-        }
-        return mensaje;
-    };
-    console.log(getAvenger('Ojo de Alcón', 'Tirador'));
-    // Cree una clase que permita manejar la siguiente estructura
-    // La clase se debe de llamar rectangulo,
-    // debe de tener dos propiedades:
-    //   * base
-    //   * altura
-    // También un método que calcule el área  =  base * altura,
-    // ese método debe de retornar un numero.
-    class Rectangulo {
-        constructor(base, altura) {
-            this.base = base;
-            this.altura = altura;
-        }
-        area() {
-            return console.log(this.base * this.altura);
-        }
-    }
-    const calculo = new Rectangulo(5, 7);
-    calculo.area();
-})();
+    });
+};
+notaFinal(estudiante)
+    .then(nfinal => console.log(nfinal))
+    .catch(console.log);
