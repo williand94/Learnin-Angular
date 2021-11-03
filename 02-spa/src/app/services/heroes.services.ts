@@ -67,20 +67,36 @@ export class HeroesService{
       return this.heroes[idx];
     }
 
-  /*   getHeroName( idex:number ){
-      return this.heroes[idex].nombre;
+    getCasa( casa:string ):Heroe[]{
+      
+      let hArray:Heroe[] = [];
+      casa = casa.toLowerCase();
+
+      for( let i = 0; i < this.heroes.length;i++){
+
+        let heroe = this.heroes[i];
+
+        let casas = heroe.casa.toLowerCase();
+        if ( casas.indexOf( casa ) >= 0) {
+          heroe.idx = i;
+          hArray.push( heroe );
+        }
+      }
+      return hArray;
     }
- */
+
     buscarHeroes( termino:string ):Heroe[]{
 
       let heroesArr:Heroe[] = [];
       termino = termino.toLowerCase();
 
-      for( let heroe of this.heroes ){
+      for( let i = 0; i < this.heroes.length;i++){
+
+        let heroe = this.heroes[i];
 
         let nombre = heroe.nombre.toLowerCase();
         if ( nombre.indexOf( termino ) >= 0) {
-
+          heroe.idx = i;
           heroesArr.push( heroe );
         }
       }
@@ -95,5 +111,6 @@ export interface Heroe{
   bio: string,
   img: string,
   aparicion: string,
-  casa: string
+  casa: string,
+  idx?: number
 }
